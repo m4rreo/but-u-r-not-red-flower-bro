@@ -101,9 +101,7 @@ body {
     border: none;
     padding: 10px 10px;
     font-size: medium;
-    position: absolute;
-    top: 400px;
-    left: 50%;
+    align-items: center;
     transform: translateX(-50%);
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -111,4 +109,5 @@ body {
 
 #button:hover {
     background-color: #b01030;
+
 }
