@@ -3,6 +3,14 @@ const closedFlower = document.getElementById('closedflower');
 const openFlower = document.getElementById('openflower');
 const scene1 = document.getElementById('scene1');
 const scene2 = document.getElementById('scene2');
+const predictionContainer = document.getElementById('prediction-container');
+const predictionElement = document.getElementById('prediction');
+const historyButton = document.getElementById('button');
+
+// Изначально скрываем контейнер с предсказанием и кнопку
+predictionContainer.style.display = 'none';
+historyButton.style.display = 'none';
+historyButton.style.opacity = '0';
 
 // Массив предсказаний
 const predictions = [
@@ -33,9 +41,9 @@ let isAnimating = false;
 
 // Создаем элемент аудио для музыки
 const backgroundMusic = new Audio();
-backgroundMusic.src = './txtblue.mp3'; // Укажите путь к вашему музыкальному файлу
-backgroundMusic.loop = false; // Зацикливаем музыку
-backgroundMusic.volume = 0.3; // Устанавливаем громкость на 30%
+backgroundMusic.src = './txtblue.mp3';
+backgroundMusic.loop = false;
+backgroundMusic.volume = 0.3;
 
 // Флаг: была ли музыка уже включена
 let musicStarted = false;
@@ -47,10 +55,8 @@ function showPrediction() {
 
     // 1. Включаем музыку при первом клике на цветок
     if (!musicStarted) {
-        // Воспроизводим музыку сразу же при нажатии
         backgroundMusic.play().catch(error => {
             console.log('Ошибка воспроизведения музыки:', error);
-            // Можно добавить здесь кнопку для ручного включения музыки
         });
         musicStarted = true;
     }
@@ -59,33 +65,39 @@ function showPrediction() {
     scene1.classList.remove('active');
     scene2.classList.add('active');
 
-    // 3. Ждём 1 сек, затем убираем цветок и показываем предсказание
+    // 3. Ждём 400мс, затем убираем цветок и показываем предсказание
     setTimeout(() => {
         // Скрываем цветок (с плавным исчезновением)
         openFlower.style.opacity = 0;
         openFlower.style.transform = 'scale(0.8)';
         openFlower.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
 
-        // Создаём и добавляем элемент предсказания
-        const predictionElement = document.createElement('div');
-        predictionElement.id = 'prediction';
-
         // Выбираем случайное предсказание
         const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
         predictionElement.textContent = randomPrediction;
 
-        // Добавляем в сцену 2
-        scene2.appendChild(predictionElement);
+        // Показываем контейнер с предсказанием (но без кнопки)
+        predictionContainer.style.display = 'block';
+        predictionContainer.style.opacity = '1';
+        predictionElement.style.opacity = 1;
 
-        // Плавное появление предсказания
+        // Скрываем кнопку изначально
+        historyButton.style.display = 'none';
+        historyButton.style.opacity = '0';
+
+        // Ждем 1.5 секунды после показа предсказания, затем показываем кнопку
         setTimeout(() => {
-            predictionElement.style.opacity = 1;
-            predictionElement.style.transform = 'translateY(0)';
-        }, 10);
+            historyButton.style.display = 'block';
+            // Небольшая задержка перед анимацией появления
+            setTimeout(() => {
+                historyButton.style.opacity = '1';
+                historyButton.style.transition = 'opacity 0.7s ease';
+            }, 50);
+        }, 1500); // Задержка 1.5 секунды перед показом кнопки
 
-    }, 400); // 1 секунда задержки
+    }, 400);
 
-    // Разблокируем анимацию через 2 сек (с запасом)
+    // Разблокируем анимацию через 4 сек
     setTimeout(() => {
         isAnimating = false;
     }, 4000);
@@ -94,29 +106,41 @@ function showPrediction() {
 // Обработчик клика на закрытый цветок
 closedFlower.addEventListener('click', showPrediction);
 
-// Опционально: при клике на предсказание можно вернуться к началу
-document.addEventListener('click', (e) => {
-    if (e.target.id === 'prediction' && !isAnimating) {
-        scene2.classList.remove('active');
-        scene1.classList.add('active');
+// Обработчик клика на кнопку "узнать историю"
+historyButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.open('https://ru.wikipedia.org/wiki/Аленький_цветочек', '_blank');
+});
 
-        // Удаляем предсказание и возвращаем цветок в исходное состояние
-        const predictionElement = document.getElementById('prediction');
-        if (predictionElement) {
-            predictionElement.remove();
-        }
-        openFlower.style.opacity = 1;
-        openFlower.style.transform = 'scale(1)';
-        openFlower.style.transition = 'none';
-    }
-
-    const historyButton = document.createElement('button');
-    historyButton.id = 'button';
-    historyButton.textContent = 'узнать историю';
-    historyButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.open('https://ru.wikipedia.org/wiki/Аленький_цветочек', '_blank');
-    });
-    scene2.appendChild(historyButton);
+// Обработчик клика на предсказание для возврата к началу
+predictionElement.addEventListener('click', (e) => {
+    if (isAnimating) return;
+    
+    // Скрываем кнопку сразу (с плавным исчезновением)
+    historyButton.style.opacity = '0';
+    
+    // Ждем завершения анимации исчезновения кнопки
+    setTimeout(() => {
+        historyButton.style.display = 'none';
+        
+        // Скрываем контейнер с предсказанием
+        predictionContainer.style.opacity = '0';
+        
+        setTimeout(() => {
+            predictionContainer.style.display = 'none';
+            
+            // Возвращаемся к первой сцене
+            scene2.classList.remove('active');
+            scene1.classList.add('active');
+            
+            // Возвращаем цветок в исходное состояние
+            openFlower.style.opacity = 1;
+            openFlower.style.transform = 'scale(1)';
+            openFlower.style.transition = 'none';
+            
+            // Сбрасываем предсказание
+            predictionElement.textContent = '';
+        }, 500);
+    }, 300);
 });
 
