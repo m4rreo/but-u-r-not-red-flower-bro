@@ -53,7 +53,7 @@ function showPrediction() {
     if (isAnimating) return;
     isAnimating = true;
 
-    // 1. Включаем музыку при первом клике на цветок
+    // Включаем музыку при первом клике на цветок
     if (!musicStarted) {
         backgroundMusic.play().catch(error => {
             console.log('Ошибка воспроизведения музыки:', error);
@@ -61,11 +61,11 @@ function showPrediction() {
         musicStarted = true;
     }
 
-    // 2. Переключаем сцены
+    // Переключаем сцены
     scene1.classList.remove('active');
     scene2.classList.add('active');
 
-    // 3. Ждём 400мс, затем убираем цветок и показываем предсказание
+    // Убираем цветок и показываем предсказание
     setTimeout(() => {
         // Скрываем цветок (с плавным исчезновением)
         openFlower.style.opacity = 0;
@@ -85,7 +85,7 @@ function showPrediction() {
         historyButton.style.display = 'none';
         historyButton.style.opacity = '0';
 
-        // Ждем 1.5 секунды после показа предсказания, затем показываем кнопку
+        // Ждем после показа предсказания, затем показываем кнопку
         setTimeout(() => {
             historyButton.style.display = 'block';
             // Небольшая задержка перед анимацией появления
@@ -97,7 +97,7 @@ function showPrediction() {
 
     }, 400);
 
-    // Разблокируем анимацию через 4 сек
+    // Разблокируем анимацию
     setTimeout(() => {
         isAnimating = false;
     }, 4000);
@@ -105,12 +105,6 @@ function showPrediction() {
 
 // Обработчик клика на закрытый цветок
 closedFlower.addEventListener('click', showPrediction);
-
-// Обработчик клика на кнопку "узнать историю"
-historyButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    window.open('https://ru.wikipedia.org/wiki/Аленький_цветочек', '_blank');
-});
 
 // Обработчик клика на предсказание для возврата к началу
 predictionElement.addEventListener('click', (e) => {
@@ -143,4 +137,5 @@ predictionElement.addEventListener('click', (e) => {
         }, 500);
     }, 300);
 });
+
 
