@@ -21,7 +21,7 @@ Learning to make websites in HTML. My first project!!
 
 ---
 
-*Sorry for bad english*
-*Don't hurt me I'm 13 🥺*
-*I used AI*
+*Sorry for bad english...*
+*don't hurt me I'm 13 🥺*
+*I used AI by the way*
 
