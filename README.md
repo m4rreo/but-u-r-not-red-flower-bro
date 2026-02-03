@@ -1,6 +1,6 @@
 # My first website!
 
-Learning to make websites in HTML. My first project!!
+Learning to make websites in HTML. My first project - a flower that predicts the future.
 
 ## What's here?
 - Pretty red flower I drew by myself
