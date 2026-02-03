@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pixelify Sans';
+}
+
+body {
+    background-color: rgb(233, 246, 255);
+    height: 310px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Общие стили для сцен */
+.scene {
+    display: none;
+    /* Все сцены скрыты по умолчанию */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.scene.active {
+    display: flex;
+    /* Активная сцена видна */
+}
+
+#closedflower {
+    height: auto;
+    width: 200px;
+    transition: transform 0.3s ease;
+}
+
+#closedflower:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 0px rgba(73, 73, 73, 0.3));
+}
+
+#title1 {
+    font-size: xx-large;
+    font-weight: lighter;
+    color: #aed3eb;
+    margin-top: 20px;
+}
+
+#title2 {
+    font-size: xx-large;
+    font-weight: lighter;
+    color: #aed3eb;
+    margin-top: 10px;
+}
+
+/* Стили для второй сцены */
+#prediction {
+    font-size: x-large;
+    color: #aed3eb;
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+#openflower {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s ease;
+}
+
+#openflower:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 0px rgba(73, 73, 73, 0.3));
+}
+    
+#prediction {
+    font-size: xx-large;
+    color: #aed3eb;
+    position: absolute;
+    top: 270px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+#bluehour {
+    position: absolute;
+    top: 560px;
+    left: 20px;
+    color: #aed3eb;
+    font-size: smaller;
+}
+
+#button {
+    color: #aed3eb;
+    background-color: #d1143a;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 10px;
+    font-size: medium;
+    position: absolute;
+    top: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#button:hover {
+    background-color: #b01030;
+}
