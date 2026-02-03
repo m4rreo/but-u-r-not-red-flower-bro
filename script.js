@@ -69,8 +69,8 @@ function showPrediction() {
     setTimeout(() => {
         // Скрываем цветок (с плавным исчезновением)
         openFlower.style.opacity = 0;
-        openFlower.style.transform = 'scale(0.8)';
-        openFlower.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        openFlower.style.transform = 'scale(1.5)';
+        openFlower.style.transition = 'opacity 1s ease, transform 1s ease';
 
         // Выбираем случайное предсказание
         const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
@@ -91,16 +91,16 @@ function showPrediction() {
             // Небольшая задержка перед анимацией появления
             setTimeout(() => {
                 historyButton.style.opacity = '1';
-                historyButton.style.transition = 'opacity 0.7s ease';
+                historyButton.style.transition = 'opacity 1s ease';
             }, 50);
-        }, 1500); // Задержка 1.5 секунды перед показом кнопки
+        }, 1800); // Задержка 1.8 секунды перед показом кнопки
 
-    }, 400);
+    }, 700);
 
     // Разблокируем анимацию
     setTimeout(() => {
         isAnimating = false;
-    }, 4000);
+    }, 5000);
 }
 
 // Обработчик клика на закрытый цветок
@@ -134,9 +134,10 @@ predictionElement.addEventListener('click', (e) => {
             
             // Сбрасываем предсказание
             predictionElement.textContent = '';
-        }, 500);
-    }, 300);
+        }, 700);
+    }, 500);
 });
+
 
 
 
