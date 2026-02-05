@@ -100,7 +100,7 @@ body {
     padding: 10px 10px;
     font-size: medium;
     position: absolute;
-    top: 300px;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
@@ -111,6 +111,7 @@ body {
     background-color: #b01030;
 
 }
+
 
 
 
