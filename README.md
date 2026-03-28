@@ -6,8 +6,6 @@ Learning to make websites in HTML. My first project - a flower that predicts the
 - Pretty red flower I drew by myself
 - 20 random predictions on Russian for you
 - Blue Hour song by TXT (any MOAs here?)
-- History of 'The Scarlet Flower' fairy tale by Sergei Aksakov
-
 
 ## How to use?
 1. Click on `index.html` 
