@@ -85,16 +85,7 @@ function showPrediction() {
         historyButton.style.display = 'none';
         historyButton.style.opacity = '0';
 
-        // Ждем после показа предсказания, затем показываем кнопку
-        setTimeout(() => {
-            historyButton.style.display = 'block';
-            // Небольшая задержка перед анимацией появления
-            setTimeout(() => {
-                historyButton.style.opacity = '1';
-                historyButton.style.transition = 'opacity 1s ease';
-            }, 50);
-        }, 1800); // Задержка 1.8 секунды перед показом кнопки
-
+    
     }, 700);
 
     // Разблокируем анимацию
@@ -110,18 +101,9 @@ closedFlower.addEventListener('click', showPrediction);
 predictionElement.addEventListener('click', (e) => {
     if (isAnimating) return;
     
-    // Скрываем кнопку сразу (с плавным исчезновением)
-    historyButton.style.opacity = '0';
+;
     
-    // Ждем завершения анимации исчезновения кнопки
-    setTimeout(() => {
-        historyButton.style.display = 'none';
-        
-        // Скрываем контейнер с предсказанием
-        predictionContainer.style.opacity = '0';
-        
-        setTimeout(() => {
-            predictionContainer.style.display = 'none';
+
             
             // Возвращаемся к первой сцене
             scene2.classList.remove('active');
