@@ -1,16 +1,13 @@
-// Получаем элементы
+// 1. Получаем только нужные элементы
 const closedFlower = document.getElementById('closedflower');
 const openFlower = document.getElementById('openflower');
 const scene1 = document.getElementById('scene1');
 const scene2 = document.getElementById('scene2');
 const predictionContainer = document.getElementById('prediction-container');
 const predictionElement = document.getElementById('prediction');
-const historyButton = document.getElementById('button');
 
-// Изначально скрываем контейнер с предсказанием и кнопку
+// Изначально скрываем контейнер
 predictionContainer.style.display = 'none';
-historyButton.style.display = 'none';
-historyButton.style.opacity = '0';
 
 // Массив предсказаний
 const predictions = [
@@ -36,28 +33,21 @@ const predictions = [
     'кто-то очень поможет вам'
 ];
 
-// Флаг: блокирует повторные клики во время анимации
 let isAnimating = false;
-
-// Создаем элемент аудио для музыки
-const backgroundMusic = new Audio();
-backgroundMusic.src = './txtblue.mp3';
-backgroundMusic.loop = false;
-backgroundMusic.volume = 0.3;
-
-// Флаг: была ли музыка уже включена
 let musicStarted = false;
+
+// Оставляем только фоновую музыку
+const backgroundMusic = new Audio('./txtblue.mp3');
+backgroundMusic.volume = 0.3;
 
 // Функция: показать предсказание
 function showPrediction() {
     if (isAnimating) return;
     isAnimating = true;
 
-    // Включаем музыку при первом клике на цветок
+    // Включаем музыку при первом клике
     if (!musicStarted) {
-        backgroundMusic.play().catch(error => {
-            console.log('Ошибка воспроизведения музыки:', error);
-        });
+        backgroundMusic.play().catch(error => console.log('Ошибка звука:', error));
         musicStarted = true;
     }
 
@@ -65,60 +55,33 @@ function showPrediction() {
     scene1.classList.remove('active');
     scene2.classList.add('active');
 
-    // Убираем цветок и показываем предсказание
+    // Эффект появления текста
     setTimeout(() => {
-        // Скрываем цветок (с плавным исчезновением)
         openFlower.style.opacity = 0;
-        openFlower.style.transform = 'scale(1.5)';
-        openFlower.style.transition = 'opacity 1s ease, transform 1s ease';
+        openFlower.style.transform = 'scale(0.8)';
+        openFlower.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
 
-        // Выбираем случайное предсказание
         const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
         predictionElement.textContent = randomPrediction;
 
-        // Показываем контейнер с предсказанием (но без кнопки)
         predictionContainer.style.display = 'block';
-        predictionContainer.style.opacity = '1';
-        predictionElement.style.opacity = 1;
+        
+        // Для корректной работы анимации появления (через микро-задержку)
+        setTimeout(() => {
+            predictionContainer.style.opacity = 1;
+            predictionElement.style.opacity = 1;
+        }, 50);
 
-        // Скрываем кнопку изначально
-        historyButton.style.display = 'none';
-        historyButton.style.opacity = '0';
+    }, 400);
 
-    
-    }, 700);
-
-    // Разблокируем анимацию
+    // Блокируем клик на время анимации
     setTimeout(() => {
         isAnimating = false;
-    }, 5000);
+    }, 4000);
 }
 
-// Обработчик клика на закрытый цветок
+// Единственный нужный обработчик
 closedFlower.addEventListener('click', showPrediction);
-
-// Обработчик клика на предсказание для возврата к началу
-predictionElement.addEventListener('click', (e) => {
-    if (isAnimating) return;
-    
-;
-    
-
-            
-            // Возвращаемся к первой сцене
-            scene2.classList.remove('active');
-            scene1.classList.add('active');
-            
-            // Возвращаем цветок в исходное состояние
-            openFlower.style.opacity = 1;
-            openFlower.style.transform = 'scale(1)';
-            openFlower.style.transition = 'none';
-            
-            // Сбрасываем предсказание
-            predictionElement.textContent = '';
-        }, 700);
-    }, 500);
-});
 
 
 
